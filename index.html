@@ -1,625 +1,400 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Amogh Shrivastava – Resume</title>
+    <title>Amogh Shrivastava – Premium Resume</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
     <style>
         :root {
-            --text-main: #111827;
-            --text-muted: #374151;
-            --text-light: #6b7280;
-            --border-color: #d1d5db;
+            --bg-page: #f1f5f9;
+            --bg-resume: linear-gradient(165deg, #0f172a 0%, #1e293b 100%);
+            --accent-primary: #00e5ff;
+            --accent-secondary: #d946ef;
+            --text-dark: #1e293b;
+            --text-light: #f8fafc;
+            --text-muted: #94a3b8;
+            --glass-bg: rgba(30, 41, 59, 0.7);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --shadow-premium: 0 20px 50px -12px rgba(0, 0, 0, 0.5), 0 0 20px rgba(0, 229, 255, 0.1);
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
-            background-color: #e2e8f0;
-            font-family: 'Inter', system-ui, -apple-system, sans-serif;
-            line-height: 1.5;
-            color: var(--text-main);
-            padding: 1rem 2rem 2rem 2rem;
-            padding-top: 80px; /* Room for the fixed toolbar */
-            -webkit-font-smoothing: antialiased;
+            background-color: var(--bg-page);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            color: var(--text-dark);
+            padding: 4rem 2rem;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            overflow-x: hidden;
         }
 
-        /* Editor Toolbar Styles */
+        /* PREMIUM BUTTONS & CONTROLS */
+        .admin-trigger {
+            position: fixed; top: 25px; right: 25px;
+            background: var(--glass-bg); backdrop-filter: blur(12px);
+            color: white; border: 1px solid var(--glass-border);
+            padding: 10px 20px; border-radius: 12px; cursor: pointer;
+            font-size: 0.85rem; font-weight: 700; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 900; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+        .admin-trigger:hover { 
+            background: #0f172a; border-color: var(--accent-primary);
+            transform: translateY(-2px); box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2);
+        }
+
+        .mode-tag {
+            position: fixed; bottom: 25px; left: 25px;
+            padding: 10px 20px; border-radius: 12px;
+            background: var(--glass-bg); backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            font-size: 0.7rem; font-weight: 800; letter-spacing: 0.15em;
+            text-transform: uppercase; color: var(--text-muted);
+            z-index: 900;
+        }
+
+        /* AUTH OVERLAY */
+        .login-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(15, 23, 42, 0.98); display: none;
+            justify-content: center; align-items: center; z-index: 2000; backdrop-filter: blur(10px);
+        }
+        .login-card {
+            background: rgba(30, 41, 59, 0.5); padding: 3rem; border-radius: 24px;
+            border: 1px solid var(--glass-border); text-align: center; width: 420px;
+            box-shadow: 0 0 40px rgba(0, 0, 0, 0.5);
+        }
+
+        /* TOOLBARS */
         .editor-toolbar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            background: #1e293b;
-            padding: 12px 20px;
-            display: flex;
-            gap: 10px;
-            z-index: 1000;
-            justify-content: center;
-            align-items: center;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-            flex-wrap: wrap;
+            position: fixed; top: 0; left: 0; width: 100%;
+            background: rgba(15, 23, 42, 0.9); backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--glass-border);
+            padding: 12px 20px; display: none; gap: 15px;
+            z-index: 1000; justify-content: center; align-items: center;
+            animation: slideDown 0.4s ease-out;
         }
+        @keyframes slideDown { from { transform: translateY(-100%); } to { transform: translateY(0); } }
         
+        body.edit-mode .editor-toolbar#editorBar { display: flex; }
+
         .editor-toolbar button {
-            background: #f8fafc;
-            border: 1px solid #cbd5e1;
-            padding: 6px 12px;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 14px;
-            font-family: inherit;
-            font-weight: 600;
-            color: #1e293b;
-            transition: all 0.2s;
-            display: flex;
-            align-items: center;
-            gap: 5px;
+            background: rgba(255, 255, 255, 0.03); border: 1px solid var(--glass-border);
+            padding: 10px 18px; border-radius: 10px; cursor: pointer;
+            font-weight: 700; color: white; transition: 0.2s;
+            font-family: inherit; font-size: 0.9rem;
         }
+        .editor-toolbar button:hover { background: rgba(255, 255, 255, 0.1); border-color: var(--accent-primary); }
+        .editor-toolbar button.primary { background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary)); border: none; }
+        .editor-toolbar .divider { height: 28px; width: 1px; background: var(--glass-border); margin: 0 10px; }
 
-        .editor-toolbar button:hover {
-            background: #e2e8f0;
-        }
-
-        .editor-toolbar .divider {
-            height: 24px;
-            width: 1px;
-            background: #475569;
-            margin: 0 5px;
-        }
-
-        .editor-toolbar button.primary {
-            background: #2563eb;
-            color: white;
-            border-color: #1d4ed8;
-        }
-
-        .editor-toolbar button.primary:hover {
-            background: #1d4ed8;
-        }
-
-        /* Editing cues */
-        [contenteditable="true"] {
-            outline: none;
-        }
-        
-        [contenteditable="true"]:hover {
-            box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.1);
-        }
-
+        /* RESUME CONTAINER */
         .resume-container {
-            max-width: 850px;
-            margin: 0 auto;
-            background: white;
-            padding: 3rem 4rem;
-            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
-            border-radius: 4px;
+            max-width: 920px; width: 100%;
+            background: var(--bg-resume); border-radius: 32px;
+            padding: 5rem; border: 1px solid rgba(0, 229, 255, 0.15);
+            position: relative; color: var(--text-light);
+            box-shadow: var(--shadow-premium);
+            transition: all 0.5s ease;
         }
 
-        .header {
-            text-align: center;
-            border-bottom: 2px solid var(--text-main);
-            padding-bottom: 1.5rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .header h1 {
-            font-size: 2.25rem;
-            font-weight: 700;
-            margin-bottom: 0.25rem;
-            letter-spacing: -0.025em;
-            color: var(--text-main);
-            text-transform: uppercase;
-        }
-
-        .header .subtitle {
-            font-size: 1rem;
-            color: var(--text-muted);
-            font-weight: 500;
+        /* HEADER */
+        .header { text-align: center; margin-bottom: 4rem; position: relative; }
+        .header h1 { 
+            font-size: 3.5rem; font-weight: 800; letter-spacing: -0.04em;
+            background: linear-gradient(135deg, #fff 30%, var(--accent-primary) 100%);
+            -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
             margin-bottom: 0.75rem;
         }
+        .header .subtitle { font-size: 1.25rem; font-weight: 600; color: var(--text-muted); margin-bottom: 1.5rem; }
+        .header .contact { display: flex; justify-content: center; gap: 2.5rem; color: var(--text-muted); font-size: 0.95rem; }
+        .header .contact span { display: flex; align-items: center; gap: 10px; }
+        .header .contact i { color: var(--accent-primary); font-size: 1.1rem; }
 
-        .header .contact {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 1.25rem;
-            font-size: 0.9rem;
-            color: var(--text-muted);
-        }
-
-        .header .contact a {
-            color: var(--text-main);
-            text-decoration: none;
-            font-weight: 500;
-        }
-
-        .header .contact a:hover {
-            color: #2563eb;
-        }
+        /* SECTIONS */
+        .section { margin-bottom: 3.5rem; animation: fadeIn 0.8s ease-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
         
-        .header .contact span {
-            display: flex;
-            align-items: center;
-            gap: 0.25rem;
+        .section-title { 
+            font-size: 1.1rem; font-weight: 900; color: var(--accent-primary);
+            letter-spacing: 0.15em; text-transform: uppercase;
+            margin-bottom: 2rem; display: flex; align-items: center; gap: 15px;
         }
+        .section-title::after { content: ""; flex: 1; height: 1px; background: linear-gradient(to right, rgba(0, 229, 255, 0.3), transparent); }
 
-        .section {
-            margin-bottom: 1.25rem;
-        }
+        .entry { margin-bottom: 2.25rem; }
+        .entry-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 0.75rem; }
+        .entry-title { font-weight: 800; font-size: 1.2rem; color: #fff; }
+        .entry-date { color: var(--accent-primary); font-weight: 700; font-size: 0.95rem; letter-spacing: 0.05em; }
+        .entry-subtitle { color: #cbd5e1; font-weight: 500; font-size: 1rem; margin-top: -0.25rem; margin-bottom: 0.75rem; }
 
-        .section-title {
-            font-size: 1.05rem;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            font-weight: 700;
-            color: var(--text-main);
-            border-bottom: 1px solid var(--border-color);
-            padding-bottom: 0.25rem;
-            margin-bottom: 0.75rem;
-            page-break-after: avoid;
-            break-after: avoid;
-        }
+        .bullet-list { list-style: none; }
+        .bullet-list li { position: relative; padding-left: 1.75rem; margin-bottom: 0.75rem; color: #94a3b8; line-height: 1.6; font-size: 1rem; }
+        .bullet-list li::before { content: "→"; position: absolute; left: 0; color: var(--accent-primary); font-weight: 900; }
 
-        .entry {
-            margin-bottom: 0.85rem;
-            break-inside: avoid;
-            page-break-inside: avoid;
+        .skills-grid { display: grid; grid-template-columns: 200px 1fr; gap: 2rem; padding: 1rem 0; align-items: start; }
+        .skills-grid strong { font-weight: 800; color: #fff; text-transform: uppercase; font-size: 0.85rem; letter-spacing: 0.05em; margin-top: 8px; }
+        .skills-flex { display: flex; flex-wrap: wrap; gap: 0.75rem; }
+        .skill-tag { 
+            background: rgba(0, 229, 255, 0.08); color: var(--accent-primary);
+            padding: 8px 18px; border-radius: 50px; font-size: 0.85rem; font-weight: 700;
+            border: 1px solid rgba(0, 229, 255, 0.2); transition: 0.3s;
         }
+        .skill-tag:hover { background: var(--accent-primary); color: #0f172a; transform: translateY(-2px); box-shadow: 0 5px 15px rgba(0, 229, 255, 0.4); }
 
-        .entry-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: baseline;
-            margin-bottom: 0.1rem;
+        /* NOTES PANEL */
+        .notes-container { position: fixed; right: 25px; bottom: 25px; width: 320px; display: flex; flex-direction: column; gap: 15px; z-index: 800; }
+        .note-card {
+            background: var(--glass-bg); backdrop-filter: blur(16px);
+            border: 1px solid var(--glass-border); border-left: 4px solid var(--accent-primary);
+            padding: 18px; border-radius: 16px; font-size: 0.9rem; color: white;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2); animation: slideIn 0.3s ease-out;
         }
+        @keyframes slideIn { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
 
-        .entry-title {
-            font-weight: 700;
-            font-size: 1rem;
-            color: var(--text-main);
-        }
 
-        .entry-date {
-            font-size: 0.85rem;
-            color: var(--text-main);
-            font-weight: 600;
-            white-space: nowrap;
-        }
 
-        .entry-subtitle {
-            font-size: 0.9rem;
-            color: var(--text-main);
-            font-weight: 600;
-            margin-bottom: 0.25rem;
-            font-style: italic;
-        }
-
-        .bullet-list {
-            list-style-type: none;
-            color: var(--text-muted);
-        }
-
-        .bullet-list li {
-            font-size: 0.88rem;
-            margin-bottom: 0.2rem;
-            line-height: 1.45;
-            position: relative;
-            padding-left: 1rem;
-        }
-
-        .bullet-list li::before {
-            content: "\2022"; /* Bullet symbol */
-            position: absolute;
-            left: 0;
-            color: var(--text-light);
-            font-weight: bold;
-        }
-
-        .skills-grid {
-            display: grid;
-            grid-template-columns: max-content 1fr;
-            gap: 0.35rem 1rem;
-            font-size: 0.88rem;
-            line-height: 1.45;
-        }
-
-        .skills-grid strong {
-            color: var(--text-main);
-            font-weight: 700;
-        }
-
-        .skills-list {
-            color: var(--text-muted);
-        }
 
         @media print {
-            body {
-                background: white;
-                padding: 0 !important;
-            }
-            .editor-toolbar {
-                display: none !important;
-            }
-            .resume-container {
-                padding: 0;
-                box-shadow: none;
-                max-width: 100%;
-                width: 100%;
-            }
-            @page {
-                size: A4 portrait;
-                margin: 0.5in 0.6in 0.5in 0.6in;
-            }
-            .section {
-                page-break-inside: auto;
-            }
-            .entry {
-                page-break-inside: avoid;
-                break-inside: avoid;
-            }
-            a {
-                color: inherit !important;
-                text-decoration: none !important;
-            }
+            body { padding: 0; background: white; color: black; }
+            .editor-toolbar, .mode-tag, .notes-container, .login-overlay, .admin-trigger, #text-toolbar { display: none !important; }
+            .resume-container { border: none; box-shadow: none; max-width: 100%; padding: 0; background: white !important; color: black !important; }
+            :root { color-scheme: light; }
+            .header h1 { -webkit-text-fill-color: black !important; background: none !important; }
+            .entry-date, .section-title { color: #0088aa !important; }
+            .skill-tag { border: 1px solid #ccc; color: black; background: #eee; }
         }
     </style>
-</head>
-<body>
 
-    <!-- TOOLBAR -->
-    <div class="editor-toolbar" id="toolbar">
-        <button onclick="document.execCommand('bold', false, null)" title="Bold"><b>B</b></button>
-        <button onclick="document.execCommand('italic', false, null)" title="Italic"><i>I</i></button>
-        <button onclick="document.execCommand('underline', false, null)" title="Underline"><u>U</u></button>
-        <div class="divider"></div>
-        <button onclick="document.execCommand('insertUnorderedList', false, null)" title="Add Bullet List">• Bullet List</button>
-        <div class="divider"></div>
-        <button onclick="addSection()">➕ Add Section</button>
-        <button onclick="addEntry()">➕ Add Entry</button>
-        <div class="divider"></div>
-        <button onclick="exportPDF()" class="primary">📥 Export PDF</button>
+    </style>
+</head>
+
+<body>
+    <!-- ADMIN ACCESS -->
+    <button class="admin-trigger" onclick="showLogin()"><i class="fa-solid fa-lock"></i> Editor Access</button>
+
+    <!-- AUTH OVERLAY -->
+    <div class="login-overlay" id="loginOverlay">
+        <div class="login-card">
+            <h2 style="color: var(--primary); font-weight: 800; margin-bottom: 0.5rem; letter-spacing: -0.02em;">ACCESS EDITOR</h2>
+            <p style="font-size: 0.9rem; color: #94a3b8; margin-bottom: 1.5rem;">Enter password to unlock administrative tools.</p>
+            <input type="password" id="passInput" placeholder="••••••••••••" style="width: 100%; padding: 14px; margin-bottom: 1.5rem; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; color: white; outline: none;">
+            <div style="display: flex; gap: 12px;">
+                <button onclick="doLogin()" class="primary" style="flex: 2; padding: 12px; background: linear-gradient(135deg, #00e5ff 0%, #d946ef 100%); border:none; border-radius: 8px; color:white; font-weight:700; cursor:pointer;">Unlock</button>
+                <button onclick="hideLogin()" style="flex: 1; padding: 12px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.2); border-radius: 8px; color:white; cursor:pointer;">Cancel</button>
+            </div>
+        </div>
     </div>
 
-    <!-- RESUME CONTENT (Editable) -->
-    <div class="resume-container" contenteditable="true" id="resumeContent">
-        <!-- HEADER -->
-        <div class="header">
-            <h1>Amogh Shrivastava</h1>
-            <div class="contact">
-                <span>📍 Kolkata, India</span>
-                <span>📧 <a href="mailto:contact.amoghshrivastava@gmail.com">contact.amoghshrivastava@gmail.com</a></span>
-                <span>📞 +91 7595855810</span>
-            </div>
-        </div>
+    <!-- TOOLBARS -->
+    <div class="editor-toolbar" id="editorBar">
+        <button onclick="document.execCommand('bold')"><i class="fa-solid fa-bold"></i></button>
+        <button onclick="document.execCommand('italic')"><i class="fa-solid fa-italic"></i></button>
+        <div class="divider"></div>
+        <button onclick="addSection()"><i class="fa-solid fa-plus"></i> Section</button>
+        <button onclick="addEntry()"><i class="fa-solid fa-file-plus"></i> Entry</button>
+        <div class="divider"></div>
+        <button onclick="downloadData()" class="primary"><i class="fa-solid fa-save"></i> Save JSON</button>
+        <button onclick="doLogout()"><i class="fa-solid fa-lock"></i> Exit</button>
+    </div>
 
-        <!-- EDUCATION -->
-        <div class="section">
-            <div class="section-title">Education</div>
-            <div class="entry">
-                <div class="entry-header">
-                    <span class="entry-title">South City International School, Kolkata</span>
-                    <span class="entry-date">2017 – Present</span>
-                </div>
-                <ul class="bullet-list" style="margin-top: 0.25rem;">
-                    <li><strong>Academics:</strong> Grade 12 (Predicted): 98% | Grade 11: 91% | ICSE (Grade 9 & 10): 97.8%</li>
-                    <li><strong>Coursework:</strong> Physics, Mathematics, Computer Science, English, and History</li>
-                    <li><strong>Standardized Tests:</strong> SAT: 1510 (720 Evidence-Based Reading & Writing, 790 Mathematics) | AP Computer Science A: 5/5</li>
-                </ul>
-            </div>
-        </div>
+    <!-- VIEWER INTERACTION -->
+    <div id="text-toolbar" style="position: absolute; display: none; background: #1e293b; border: 1px solid rgba(0,229,255,0.2); border-radius: 8px; padding: 6px; gap: 8px; z-index: 500;">
+        <button onclick="highlightText()" style="background:transparent; border:none; color:white; cursor:pointer;"><i class="fa-solid fa-highlighter"></i></button>
+        <button onclick="makeNote()" style="background:transparent; border:none; color:white; cursor:pointer;"><i class="fa-solid fa-comment-medical"></i></button>
+    </div>
 
-        <!-- LEADERSHIP & VENTURES -->
-        <div class="section">
-            <div class="section-title">Leadership & Ventures</div>
-            
-            <div class="entry">
-                <div class="entry-header">
-                    <span class="entry-title">Founder & Lead Engineer — VedicByte (vedicbyte.io)</span>
-                    <span class="entry-date">Jan 2025 – Aug 2025</span>
-                </div>
-                <ul class="bullet-list">
-                    <li>Architected three AI-driven chatbots leveraging Machine Learning and LLMs to digitally preserve Indian culture: Shastra AI (contextual text modeling), Karma Bot (predictive consequence mapping), and Mind to Pseudocode (developer productivity tool).</li>
-                    <li>Curated and annotated a proprietary corpus of 50+ ancient texts, engineering a high-dimensional vector database integrated with the ChatGPT API to deploy scalable, domain-specific conversational agents.</li>
-                    <li>Scaled platform infrastructure, strategically projected to achieve 1M+ cumulative impressions by October 2025.</li>
-                </ul>
-            </div>
+    <div class="notes-container" id="notePanel"></div>
+    <div class="mode-tag" id="modeIndicator" style="position: fixed; bottom: 20px; left: 20px; color: #94a3b8; font-size: 0.7rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase;">Viewer Mode</div>
 
-            <div class="entry">
-                <div class="entry-header">
-                    <span class="entry-title">Director of Technology — Student Internet Governance Forum (SIGF)</span>
-                    <span class="entry-date">Aug 2025 – Present</span>
-                </div>
-                <ul class="bullet-list">
-                    <li>Spearheaded an engineering team to architect and deploy the official full-stack platform for the UN-India Internet Governance Forum's youth extension (in collaboration with the Ministry of Electronics and IT).</li>
-                    <li>Orchestrating research initiatives exploring the integration of AI models into digital policy-making and modern internet governance frameworks.</li>
-                </ul>
-            </div>
-
-            <div class="entry">
-                <div class="entry-header">
-                    <span class="entry-title">Founder & Developer — Pramana SAT Prep</span>
-                    <span class="entry-date">Jan 2026 – Present</span>
-                </div>
-                <ul class="bullet-list">
-                    <li>Conceptualized and engineered a dynamic mock-testing portal featuring 5 authentic digital SAT examinations.</li>
-                    <li>Replicated the proprietary Bluebook testing environment, delivering a seamless, high-fidelity user experience for rigorous standardized test preparation.</li>
-                </ul>
-            </div>
-
-            <div class="entry">
-                <div class="entry-header">
-                    <span class="entry-title">Executive Director — Embrace Youth International</span>
-                    <span class="entry-date">Apr 2025 – Oct 2025</span>
-                </div>
-                <ul class="bullet-list">
-                    <li>Directed global operations across 9 branches in 5 nations, orchestrating 10+ high-impact advocacy and climate justice initiatives.</li>
-                    <li>Formulated strategic operational plans, optimized resource allocation, and managed a cross-functional organization of 100+ personnel.</li>
-                </ul>
-            </div>
-        </div>
-
-        <!-- SCHOOL LEADERSHIP -->
-        <div class="section">
-            <div class="section-title">School Leadership & Innovation</div>
-            
-            <div class="entry">
-                <div class="entry-header">
-                    <span class="entry-title">Head of Math & Astronomy Club — South City Int. School</span>
-                    <span class="entry-date">Apr 2025 – Present</span>
-                </div>
-                <ul class="bullet-list">
-                    <li>Directed advanced research initiatives and analytical skill-building workshops.</li>
-                    <li>Co-authored a peer-reviewed research paper on Galaxy Morphology leveraging complex data modeling architectures.</li>
-                </ul>
-            </div>
-
-            <div class="entry">
-                <div class="entry-header">
-                    <span class="entry-title">Head of History & Heritage Club — South City Int. School</span>
-                    <span class="entry-date">Apr 2024 – Apr 2025</span>
-                </div>
-                <ul class="bullet-list">
-                    <li>Orchestrated immersive digital and physical events bridging historical appreciation with modern engagement strategies.</li>
-                    <li>Revitalized student participation by curating interactive exhibitions.</li>
-                </ul>
-            </div>
-
-            <div class="entry">
-                <div class="entry-header">
-                    <span class="entry-title">Head of IT Club — South City Int. School</span>
-                    <span class="entry-date">Apr 2023 – Apr 2024</span>
-                </div>
-                <ul class="bullet-list">
-                    <li>Spearheaded technical literacy initiatives, organizing hands-on programming workshops and competitive hackathons.</li>
-                    <li>Mentored peers in algorithmic problem-solving and software engineering paradigms.</li>
-                </ul>
-            </div>
-
-            <div class="entry">
-                <div class="entry-header">
-                    <span class="entry-title">Coding Event Head — Morpheus (South City Int. School Fest)</span>
-                    <span class="entry-date">Jul 2025</span>
-                </div>
-                <ul class="bullet-list">
-                    <li>Architected a comprehensive competitive programming event curriculum comprising algorithmic challenges and documentation tasks.</li>
-                    <li>Evaluated student logic against robust sample test cases and managed active participation infrastructure.</li>
-                </ul>
-            </div>
-
-            <div class="entry">
-                <div class="entry-header">
-                    <span class="entry-title">Technical Head — City Corpus (South City Int. Commerce Fest)</span>
-                    <span class="entry-date">Oct 2025</span>
-                </div>
-                <ul class="bullet-list">
-                    <li>Engineered an AI-powered Stock Exchange Simulation platform that dynamically predicted market fluctuations based on real-world crisis prompts for interactive commerce events.</li>
-                    <li>Architected and deployed the official commerce fest IT infrastructure to seamlessly handle user registrations, event rules, and query management.</li>
-                </ul>
-            </div>
-        </div>
-
-        <!-- RESEARCH WORK -->
-        <div class="section">
-            <div class="section-title">Applied Research Work</div>
-            
-            <div class="entry">
-                <div class="entry-header">
-                    <span class="entry-title">International Journal of Science and Research (IJSR)</span>
-                    <span class="entry-date">2025</span>
-                </div>
-                <div class="entry-subtitle">Authored: "Preserving Linguistic Diversity: The Role of AI-based Language Learning Applications"</div>
-                <ul class="bullet-list">
-                    <li>Published authoritative research evaluating the efficacy of AI-driven platforms (Duolingo, Memrise) in revitalizing dying languages. Formulated data-backed policy recommendations bridging legacy methodologies with modern technology.</li>
-                </ul>
-            </div>
-
-            <div class="entry">
-                <div class="entry-header">
-                    <span class="entry-title">Independent Research (Submitted to Journals)</span>
-                    <span class="entry-date">2026</span>
-                </div>
-                <div class="entry-subtitle">Co-Authored: "Triage and Refine Framework for Scalable Galaxy Morphology Classification"</div>
-                <ul class="bullet-list">
-                    <li>Proposed a highly sophisticated hybrid Human-CNN (Convolutional Neural Network) architecture optimized for the Vera Rubin Observatory dataset, synthesizing comprehensive empirical evidence to evaluate validation metrics.</li>
-                </ul>
-            </div>
-
-            <div class="entry">
-                <div class="entry-header">
-                    <span class="entry-title">Computational Linguistics Investigation</span>
-                    <span class="entry-date">Ongoing 2026</span>
-                </div>
-                <div class="entry-subtitle">Investigating: "LLM Hallucination Detection in Code-Mixed Indian Languages"</div>
-                <ul class="bullet-list">
-                    <li>Spearheading empirical investigations into computational linguistics, analyzing hallucination variance and output fidelity across multiple Large Language Models processing complex code-mixed regional structures.</li>
-                </ul>
-            </div>
-        </div>
-
-        <!-- INTERNSHIPS & PROGRAMS -->
-        <div class="section">
-            <div class="section-title">Internships & Professional Development</div>
-            
-            <div class="entry">
-                <div class="entry-header">
-                    <span class="entry-title">Frontend Intern — Pakka Skills, Ayodhya</span>
-                    <span class="entry-date">Apr 2025 – Aug 2025</span>
-                </div>
-                <ul class="bullet-list">
-                    <li>Engineered responsive, cross-platform UI architectures utilizing HTML, CSS, and Tailwind CSS. Optimized digital brand identity through strategic UI/UX enhancements.</li>
-                </ul>
-            </div>
-
-            <div class="entry">
-                <div class="entry-header">
-                    <span class="entry-title">Fullstack Intern — Klarice Academy, Kolkata</span>
-                    <span class="entry-date">Nov 2025</span>
-                </div>
-                <ul class="bullet-list">
-                    <li>Architected a robust full-stack infrastructure, integrating dynamic frontend UI components with a scalable backend REST framework to optimize data processing.</li>
-                </ul>
-            </div>
-            
-            <div class="entry">
-                <div class="entry-header">
-                    <span class="entry-title">Summer Undergraduate Program — National University of Singapore (NUS)</span>
-                    <span class="entry-date">Jul 2025</span>
-                </div>
-                <ul class="bullet-list">
-                    <li>Engaged in rigorous AI/ML coursework. Engineered a "Dark Psychology AI Therapist" leveraging predictive modeling to neutralize manipulative behavioral tactics; successfully adopted by two youth mental health organizations scaling 80+ members.</li>
-                </ul>
-            </div>
-        </div>
-
-        <!-- COMMUNITY & EXTRACURRICULARS -->
-        <div class="section">
-            <div class="section-title">Community Impact & Extracurriculars</div>
-            <div class="entry">
-                <ul class="bullet-list">
-                    <li><strong>Debate (2019–Present):</strong> Mentored by Ivy League alumni. Claimed 1st place in 10+ high-stakes regional debate championships and actively mentored a cohort of 40+ junior students in rhetorical strategy.</li>
-                    <li><strong>Varsity Athletics & Strategy (2019–Present):</strong> High School Varsity Chess Captain maintaining a peak ELO of 2200 (Lichess). Badminton Varsity Team Member securing 4th in the CISCE Regional Badminton Championship.</li>
-                    <li><strong>Standardized Test Instruction (2025–Present):</strong> Delivered specialized SAT Mathematics and English tutoring paradigms, resulting in an aggregated average score improvement of 200 points.</li>
-                    <li><strong>"Vedic Code" Podcast (2025–Present):</strong> Produced an innovative 10-episode audio series converging Artificial Intelligence paradigms with traditional Indian philosophical frameworks; projected for 10k views by Oct 2025.</li>
-                    <li><strong>VedicByte Community Outreach (2025–Present):</strong> Committed 30+ hours facilitating technological literacy initiatives and AI fundamentals at local orphanages, fostering civic empowerment.</li>
-                </ul>
-            </div>
-        </div>
-
-        <!-- HONORS & SKILLS -->
-        <div class="section">
-            <div class="section-title">Honors & Technical Proficiencies</div>
-            <div class="entry">
-                <div class="skills-grid">
-                    <strong>Awards & Distinctions:</strong>
-                    <span class="skills-list">Horizon Academic Essay Prize ($1000 Scholarship, Top 5% Globally) • Top 0.1% Scorer in ICSE Hindi 2025 (CISCE Certified) • 1st in Science Section (ICSE 2025) • 3rd Place in Build Your Bit Competition (British Council) • Gold Medalist at Robowars (National Robotics Competition, Tinker Fest 2023) • 5x Hackathon Champion.</span>
-                    
-                    <strong style="margin-top: 0.25rem;">Programming:</strong>
-                    <span class="skills-list" style="margin-top: 0.25rem;">C/C++, Java (JDBC, Spring Boot), Python (Flask, Django), JavaScript (React), HTML5/CSS3 (Tailwind, Bootstrap) • 5-Star HackerRank in C, C++, Java.</span>
-                    
-                    <strong>Architecture / Tools:</strong>
-                    <span class="skills-list">Git/GitHub, RESTful APIs, SQL, MongoDB, Large Language Models (LLMs), Vector Databases, LaTeX, Jupyter, MATLAB, Google Scholar, MS Suite.</span>
-                    
-                    <strong>Languages:</strong>
-                    <span class="skills-list">English (Fluent), Hindi (Native/Proficient).</span>
-                </div>
+    <!-- RESUME CONTAINER -->
+    <div class="resume-container">
+        <div id="app">
+            <div style="text-align:center; padding: 10rem 0;">
+                <p>Establishing secure connection to resume cloud...</p>
             </div>
         </div>
     </div>
 
     <script>
-        // JS functionality for the editor toolbar
+        const MASTER_PASS = "amogh-1234_1234#*";
+        let data = null;
+        let editMode = false;
 
-        function insertHTMLAtSelection(html) {
-            const selection = window.getSelection();
-            if (!selection.rangeCount) return;
-            
-            // Only allow insertion if inside the resume container to avoid breaking toolbar
-            let node = selection.anchorNode;
-            let withinResume = false;
-            while (node && node !== document.body) {
-                if (node.id === 'resumeContent') {
-                    withinResume = true;
-                    break;
-                }
-                node = node.parentNode;
-            }
-
-            if (!withinResume) {
-                alert("Please click inside the resume before adding a section or entry.");
-                return;
-            }
-
-            // Fallback for modern browsers avoiding execCommand for inserting complex html
-            const range = selection.getRangeAt(0);
-            const el = document.createElement("div");
-            el.innerHTML = html;
-            const frag = document.createDocumentFragment();
-            let lastNode;
-            while ((lastNode = el.firstChild)) {
-                frag.appendChild(lastNode);
-            }
-            range.insertNode(frag);
-            
-            // Move caret to end of inserted element
-            if (lastNode) {
-                range = range.cloneRange();
-                range.setStartAfter(lastNode);
-                range.collapse(true);
-                selection.removeAllRanges();
-                selection.addRange(range);
+        async function load() {
+            try {
+                const res = await fetch('resume.json');
+                data = await res.json();
+                render();
+                renderNotes();
+            } catch (e) {
+                console.error("Error loading data", e);
             }
         }
 
-        function addSection() {
-            const html = `
-            <div class="section">
-                <div class="section-title">New Section Title</div>
-                <div class="entry">
-                    <div class="entry-header">
-                        <span class="entry-title">Entry Title / Organization</span>
-                        <span class="entry-date">Date Range</span>
+        function render() {
+            const root = document.getElementById('app');
+            let h = `
+                <div class="header">
+                    <h1 onblur="updateHeader('name', this.innerText)" contenteditable="${editMode}">${data.header.name}</h1>
+                    <div class="subtitle" onblur="updateHeader('title', this.innerText)" contenteditable="${editMode}">${data.header.title}</div>
+                    <div class="contact">
+                        <span onblur="updateHeader('location', this.innerText)" contenteditable="${editMode}"><i class="fa fa-map-marker"></i> ${data.header.location}</span>
+                        <span onblur="updateHeader('email', this.innerText)" contenteditable="${editMode}"><i class="fa fa-envelope"></i> ${data.header.email}</span>
+                        <span onblur="updateHeader('phone', this.innerText)" contenteditable="${editMode}"><i class="fa fa-phone"></i> ${data.header.phone}</span>
                     </div>
-                    <ul class="bullet-list">
-                        <li>New bullet point detail here...</li>
-                    </ul>
                 </div>
-            </div><br>`;
-            
-            insertHTMLAtSelection(html);
+            `;
+
+            data.sections.forEach((s, sIdx) => {
+                h += `
+                    <div class="section" data-idx="${sIdx}">
+                        <div class="section-title" onblur="data.sections[${sIdx}].title = this.innerText" contenteditable="${editMode}">${s.title}</div>
+                        ${s.entries ? s.entries.map((e, eIdx) => `
+                            <div class="entry">
+                                <div class="entry-header">
+                                    <span class="entry-title" onblur="data.sections[${sIdx}].entries[${eIdx}].organization = this.innerText" contenteditable="${editMode}">${e.organization}</span>
+                                    <span class="entry-date" onblur="data.sections[${sIdx}].entries[${eIdx}].date = this.innerText" contenteditable="${editMode}">${e.date}</span>
+                                </div>
+                                ${e.subtitle !== undefined ? `<div class="entry-subtitle" onblur="data.sections[${sIdx}].entries[${eIdx}].subtitle = this.innerText" contenteditable="${editMode}">${e.subtitle}</div>` : ''}
+                                <ul class="bullet-list">
+                                    ${e.bullets.map((b, bIdx) => `<li onblur="data.sections[${sIdx}].entries[${eIdx}].bullets[${bIdx}] = this.innerText" contenteditable="${editMode}">${b}</li>`).join('')}
+                                </ul>
+                            </div>
+                        `).join('') : ''}
+
+                        ${s.type === 'skills' ? `
+                            <div class="skills-grid">
+                                ${s.skillGroups.map((g, gIdx) => `
+                                    <strong onblur="data.sections[${sIdx}].skillGroups[${gIdx}].label = this.innerText" contenteditable="${editMode}">${g.label}</strong>
+                                    <div class="skills-flex">
+                                        ${g.tags.map((t, tIdx) => `<span class="skill-tag" onblur="data.sections[${sIdx}].skillGroups[${gIdx}].tags[${tIdx}] = this.innerText" contenteditable="${editMode}">${t}</span>`).join('')}
+                                    </div>
+                                `).join('')}
+                            </div>
+                        ` : ''}
+                    </div>
+                `;
+            });
+            root.innerHTML = h;
+        }
+
+        function updateHeader(key, val) { data.header[key] = val; }
+
+        // EXPOSE TO CONSOLE
+        window.unlockEditor = () => { showLogin(); console.log("%c Admin access triggered. Enter password in the overlay.", "color: #00e5ff; font-weight: bold;"); };
+        
+        function showLogin() { document.getElementById('loginOverlay').style.display = 'flex'; }
+        function hideLogin() { document.getElementById('loginOverlay').style.display = 'none'; }
+        function doLogin() {
+            if(document.getElementById('passInput').value === MASTER_PASS) {
+                editMode = true;
+                document.body.classList.add('edit-mode');
+                document.getElementById('modeIndicator').innerText = "Editor Mode";
+                document.getElementById('modeIndicator').style.color = "var(--accent-primary)";
+                render();
+                hideLogin();
+            } else { alert("Access Denied"); }
+        }
+
+        // Handle Enter key for login
+        document.getElementById('passInput').addEventListener('keyup', (e) => {
+            if (e.key === 'Enter') doLogin();
+        });
+
+        function addSection() {
+            data.sections.push({ title: "New Section", entries: [{ organization: "New Organization", date: "Date Range", bullets: ["New Achievement"] }] });
+            render();
         }
 
         function addEntry() {
-            const html = `
-            <div class="entry">
-                <div class="entry-header">
-                    <span class="entry-title">Entry Title / Organization</span>
-                    <span class="entry-date">Date Range</span>
-                </div>
-                <ul class="bullet-list">
-                    <li>New bullet point detail here...</li>
-                </ul>
-            </div><br>`;
-            
-            insertHTMLAtSelection(html);
+            // Add to first section for simplicity, or find last entry-based section
+            const idx = data.sections.findIndex(s => s.entries);
+            if (idx !== -1) {
+                data.sections[idx].entries.push({ organization: "New Position", date: "Date Range", bullets: ["Task description"] });
+                render();
+            }
+        }
+        function doLogout() {
+            editMode = false;
+            document.body.classList.remove('edit-mode');
+            document.getElementById('modeIndicator').innerText = "Viewer Mode";
+            document.getElementById('modeIndicator').style.color = "var(--text-light)";
+            render();
         }
 
-        function exportPDF() {
-            // Disabling contenteditable briefly for a flawless PDF export
-            const container = document.getElementById('resumeContent');
-            container.setAttribute('contenteditable', 'false');
-            
-            // The browser's native print engine translates the @media print CSS perfectly
-            // Tell the user to select 'Save as PDF'
-            setTimeout(() => {
-                window.print();
-                container.setAttribute('contenteditable', 'true');
-            }, 100);
+        // --- VIEWER INTERACTION ---
+        const tool = document.getElementById('text-toolbar');
+        let sel = null;
+        document.addEventListener('mouseup', e => {
+            if(editMode) return;
+            const s = window.getSelection();
+            if(s.toString().trim()) {
+                sel = s.getRangeAt(0);
+                tool.style.display = 'flex';
+                tool.style.top = (e.pageY - 50) + "px";
+                tool.style.left = e.pageX + "px";
+            } else tool.style.display = 'none';
+        });
+
+        function highlightText() {
+            const span = document.createElement('span');
+            span.className = 'highlight';
+            sel.surroundContents(span);
+            tool.style.display = 'none';
         }
+
+        function makeNote() {
+            const txt = prompt("Enter Note:");
+            if(txt) {
+                const notes = JSON.parse(localStorage.getItem('notes') || '[]');
+                notes.push({ id: Date.now(), text: txt });
+                localStorage.setItem('notes', JSON.stringify(notes));
+                renderNotes();
+                highlightText();
+            }
+        }
+
+        function renderNotes() {
+            const p = document.getElementById('notePanel');
+            const notes = JSON.parse(localStorage.getItem('notes') || '[]');
+            p.innerHTML = notes.map(n => `
+                <div class="note-card">
+                    <i class="fa fa-times delete-note" onclick="delNote(${n.id})"></i>
+                    ${n.text}
+                </div>
+            `).join('');
+        }
+
+        function delNote(id) {
+            const notes = JSON.parse(localStorage.getItem('notes') || '[]');
+            localStorage.setItem('notes', JSON.stringify(notes.filter(n => n.id !== id)));
+            renderNotes();
+        }
+
+        function downloadData() {
+            const blob = new Blob([JSON.stringify(data, null, 2)], {type:'application/json'});
+            const a = document.createElement('a');
+            a.href = URL.createObjectURL(blob);
+            a.download = 'resume.json';
+            a.click();
+        }
+
+        window.onload = load;
     </script>
 </body>
 </html>

@@ -1,0 +1,227 @@
+{
+  "header": {
+    "name": "Amogh Shrivastava",
+    "title": "AI Engineer • Full-Stack Developer • Research Scholar",
+    "location": "Kolkata, India",
+    "email": "contact.amoghshrivastava@gmail.com",
+    "phone": "+91 7595855810"
+  },
+  "sections": [
+    {
+      "title": "Education",
+      "entries": [
+        {
+          "organization": "South City International School, Kolkata",
+          "date": "2017 – Present",
+          "bullets": [
+            "<strong>Academics:</strong> Grade 12 (Predicted): 98% | Grade 11: 91% | ICSE (Grade 9 & 10): 97.8%",
+            "<strong>Coursework:</strong> Physics, Mathematics, Computer Science, English, and History",
+            "<strong>Standardized Tests:</strong> SAT: 1510 (720 Evidence-Based Reading & Writing, 790 Mathematics) | AP Computer Science A: 5/5"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Leadership & Ventures",
+      "entries": [
+        {
+          "organization": "Founder & Lead Engineer — VedicByte (vedicbyte.io)",
+          "date": "Jan 2025 – Aug 2025",
+          "bullets": [
+            "Architected three AI-driven chatbots leveraging Machine Learning and LLMs to digitally preserve Indian culture: Shastra AI (contextual text modeling), Karma Bot (predictive consequence mapping), and Mind to Pseudocode (developer productivity tool).",
+            "Curated and annotated a proprietary corpus of 50+ ancient texts, engineering a high-dimensional vector database integrated with the ChatGPT API to deploy scalable, domain-specific conversational agents.",
+            "Scaled platform infrastructure, strategically projected to achieve 1M+ cumulative impressions by October 2025."
+          ]
+        },
+        {
+          "organization": "Director of Technology — Student Internet Governance Forum (SIGF)",
+          "date": "Aug 2025 – Present",
+          "bullets": [
+            "Spearheaded an engineering team to architect and deploy the official full-stack platform for the UN-India Internet Governance Forum's youth extension (in collaboration with the Ministry of Electronics and IT).",
+            "Orchestrating research initiatives exploring the integration of AI models into digital policy-making and modern internet governance frameworks."
+          ]
+        },
+        {
+          "organization": "Founder & Developer — Pramana SAT Prep",
+          "date": "Jan 2026 – Present",
+          "bullets": [
+            "Conceptualized and engineered a dynamic mock-testing portal featuring 5 authentic digital SAT examinations.",
+            "Replicated the proprietary Bluebook testing environment, delivering a seamless, high-fidelity user experience for rigorous standardized test preparation."
+          ]
+        },
+        {
+          "organization": "Executive Director — Embrace Youth International",
+          "date": "Apr 2025 – Oct 2025",
+          "bullets": [
+            "Directed global operations across 9 branches in 5 nations, orchestrating 10+ high-impact advocacy and climate justice initiatives.",
+            "Formulated strategic operational plans, optimized resource allocation, and managed a cross-functional organization of 100+ personnel."
+          ]
+        }
+      ]
+    },
+    {
+      "title": "School Leadership & Innovation",
+      "entries": [
+        {
+          "organization": "Head of Math & Astronomy Club — South City Int. School",
+          "date": "Apr 2025 – Present",
+          "bullets": [
+            "Directed advanced research initiatives and analytical skill-building workshops.",
+            "Co-authored a peer-reviewed research paper on Galaxy Morphology leveraging complex data modeling architectures."
+          ]
+        },
+        {
+          "organization": "Head of History & Heritage Club — South City Int. School",
+          "date": "Apr 2024 – Apr 2025",
+          "bullets": [
+            "Orchestrated immersive digital and physical events bridging historical appreciation with modern engagement strategies.",
+            "Revitalized student participation by curating interactive exhibitions."
+          ]
+        },
+        {
+          "organization": "Head of IT Club — South City Int. School",
+          "date": "Apr 2023 – Apr 2024",
+          "bullets": [
+            "Spearheaded technical literacy initiatives, organizing hands-on programming workshops and competitive hackathons.",
+            "Mentored peers in algorithmic problem-solving and software engineering paradigms."
+          ]
+        },
+        {
+          "organization": "Coding Event Head — Morpheus (South City Int. School Fest)",
+          "date": "Jul 2025",
+          "bullets": [
+            "Architected a comprehensive competitive programming event curriculum comprising algorithmic challenges and documentation tasks.",
+            "Evaluated student logic against robust sample test cases and managed active participation infrastructure."
+          ]
+        },
+        {
+          "organization": "Technical Head — City Corpus (South City Int. Commerce Fest)",
+          "date": "Oct 2025",
+          "bullets": [
+            "Engineered an AI-powered Stock Exchange Simulation platform that dynamically predicted market fluctuations based on real-world crisis prompts for interactive commerce events.",
+            "Architected and deployed the official commerce fest IT infrastructure to seamlessly handle user registrations, event rules, and query management."
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Applied Research Work",
+      "entries": [
+        {
+          "organization": "International Journal of Science and Research (IJSR)",
+          "date": "2025",
+          "subtitle": "Authored: \"Preserving Linguistic Diversity: The Role of AI-based Language Learning Applications\"",
+          "bullets": [
+            "Published authoritative research evaluating the efficacy of AI-driven platforms (Duolingo, Memrise) in revitalizing dying languages. Formulated data-backed policy recommendations bridging legacy methodologies with modern technology."
+          ]
+        },
+        {
+          "organization": "Independent Research (Submitted to Journals)",
+          "date": "2026",
+          "subtitle": "Co-Authored: \"Triage and Refine Framework for Scalable Galaxy Morphology Classification\"",
+          "bullets": [
+            "Proposed a highly sophisticated hybrid Human-CNN (Convolutional Neural Network) architecture optimized for the Vera Rubin Observatory dataset, synthesizing comprehensive empirical evidence to evaluate validation metrics."
+          ]
+        },
+        {
+          "organization": "Computational Linguistics Investigation",
+          "date": "Ongoing 2026",
+          "subtitle": "Investigating: \"LLM Hallucination Detection in Code-Mixed Indian Languages\"",
+          "bullets": [
+            "Spearheading empirical investigations into computational linguistics, analyzing hallucination variance and output fidelity across multiple Large Language Models processing complex code-mixed regional structures."
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Internships & Professional Development",
+      "entries": [
+        {
+          "organization": "Frontend Intern — Pakka Skills, Ayodhya",
+          "date": "Apr 2025 – Aug 2025",
+          "bullets": [
+            "Engineered responsive, cross-platform UI architectures utilizing HTML, CSS, and Tailwind CSS. Optimized digital brand identity through strategic UI/UX enhancements."
+          ]
+        },
+        {
+          "organization": "Fullstack Intern — Klarice Academy, Kolkata",
+          "date": "Nov 2025",
+          "bullets": [
+            "Architected a robust full-stack infrastructure, integrating dynamic frontend UI components with a scalable backend REST framework to optimize data processing."
+          ]
+        },
+        {
+          "organization": "Summer Undergraduate Program — National University of Singapore (NUS)",
+          "date": "Jul 2025",
+          "bullets": [
+            "Engaged in rigorous AI/ML coursework. Engineered a \"Dark Psychology AI Therapist\" leveraging predictive modeling to neutralize manipulative behavioral tactics; successfully adopted by two youth mental health organizations scaling 80+ members."
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Community Impact & Extracurriculars",
+      "entries": [
+        {
+          "organization": "Debate, Athletics & Outreach",
+          "date": "2019 – Present",
+          "bullets": [
+            "<strong>Debate (2019–Present):</strong> Mentored by Ivy League alumni. Claimed 1st place in 10+ high-stakes regional debate championships and actively mentored a cohort of 40+ junior students in rhetorical strategy.",
+            "<strong>Varsity Athletics & Strategy (2019–Present):</strong> High School Varsity Chess Captain maintaining a peak ELO of 2200 (Lichess). Badminton Varsity Team Member securing 4th in the CISCE Regional Badminton Championship.",
+            "<strong>Standardized Test Instruction (2025–Present):</strong> Delivered specialized SAT Mathematics and English tutoring paradigms, resulting in an aggregated average score improvement of 200 points.",
+            "<strong>\"Vedic Code\" Podcast (2025–Present):</strong> Produced an innovative 10-episode audio series converging Artificial Intelligence paradigms with traditional Indian philosophical frameworks; projected for 10k views by Oct 2025.",
+            "<strong>VedicByte Community Outreach (2025–Present):</strong> Committed 30+ hours facilitating technological literacy initiatives and AI fundamentals at local orphanages, fostering civic empowerment."
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Honors & Technical Proficiencies",
+      "type": "skills",
+      "skillGroups": [
+        {
+          "label": "Awards & Distinctions:",
+          "tags": [
+            "Horizon Academic Essay Prize ($1000 Scholarship, Top 5% Globally)",
+            "Top 0.1% Scorer in ICSE Hindi 2025 (CISCE Certified)",
+            "1st in Science Section (ICSE 2025) Certificate by South City International School",
+            "3rd in Build Your Bit Competition 2024 by British Council",
+            "Gold Medalist in Robowars, Tinker Fest 2023 - National Level Robotics Competition",
+            "Won 5+ local hackathons and web development competitions"
+          ]
+        },
+        {
+          "label": "Programming:",
+          "tags": [
+            "C/C++",
+            "Java (Spring Boot)",
+            "Python (Flask, Django)",
+            "JavaScript (React)",
+            "HTML5/CSS3",
+            "5-Star HackerRank"
+          ]
+        },
+        {
+          "label": "Architecture / Tools:",
+          "tags": [
+            "Git",
+            "REST APIs",
+            "SQL",
+            "MongoDB",
+            "Large Language Models",
+            "Vector DBs",
+            "Jupyter",
+            "LaTeX"
+          ]
+        },
+        {
+          "label": "Languages:",
+          "tags": [
+            "English (Fluent)",
+            "Hindi (Native)"
+          ]
+        }
+      ]
+    }
+  ]
+}
