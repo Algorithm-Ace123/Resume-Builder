@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amogh Shrivastava – Resume</title>
+    <style>
+        :root {
+            --text-main: #111827;
+            --text-muted: #374151;
+            --text-light: #6b7280;
+            --border-color: #d1d5db;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #e2e8f0;
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            line-height: 1.5;
+            color: var(--text-main);
+            padding: 1rem 2rem 2rem 2rem;
+            padding-top: 80px; /* Room for the fixed toolbar */
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Editor Toolbar Styles */
+        .editor-toolbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: #1e293b;
+            padding: 12px 20px;
+            display: flex;
+            gap: 10px;
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            flex-wrap: wrap;
+        }
+        
+        .editor-toolbar button {
+            background: #f8fafc;
+            border: 1px solid #cbd5e1;
+            padding: 6px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            font-family: inherit;
+            font-weight: 600;
+            color: #1e293b;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .editor-toolbar button:hover {
+            background: #e2e8f0;
+        }
+
+        .editor-toolbar .divider {
+            height: 24px;
+            width: 1px;
+            background: #475569;
+            margin: 0 5px;
+        }
+
+        .editor-toolbar button.primary {
+            background: #2563eb;
+            color: white;
+            border-color: #1d4ed8;
+        }
+
+        .editor-toolbar button.primary:hover {
+            background: #1d4ed8;
+        }
+
+        /* Editing cues */
+        [contenteditable="true"] {
+            outline: none;
+        }
+        
+        [contenteditable="true"]:hover {
+            box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.1);
+        }
+
+        .resume-container {
+            max-width: 850px;
+            margin: 0 auto;
+            background: white;
+            padding: 3rem 4rem;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+            border-radius: 4px;
+        }
+
+        .header {
+            text-align: center;
+            border-bottom: 2px solid var(--text-main);
+            padding-bottom: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .header h1 {
+            font-size: 2.25rem;
+            font-weight: 700;
+            margin-bottom: 0.25rem;
+            letter-spacing: -0.025em;
+            color: var(--text-main);
+            text-transform: uppercase;
+        }
+
+        .header .subtitle {
+            font-size: 1rem;
+            color: var(--text-muted);
+            font-weight: 500;
+            margin-bottom: 0.75rem;
+        }
+
+        .header .contact {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 1.25rem;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        .header .contact a {
+            color: var(--text-main);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .header .contact a:hover {
+            color: #2563eb;
+        }
+        
+        .header .contact span {
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+
+        .section {
+            margin-bottom: 1.25rem;
+        }
+
+        .section-title {
+            font-size: 1.05rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-weight: 700;
+            color: var(--text-main);
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 0.25rem;
+            margin-bottom: 0.75rem;
+            page-break-after: avoid;
+            break-after: avoid;
+        }
+
+        .entry {
+            margin-bottom: 0.85rem;
+            break-inside: avoid;
+            page-break-inside: avoid;
+        }
+
+        .entry-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 0.1rem;
+        }
+
+        .entry-title {
+            font-weight: 700;
+            font-size: 1rem;
+            color: var(--text-main);
+        }
+
+        .entry-date {
+            font-size: 0.85rem;
+            color: var(--text-main);
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        .entry-subtitle {
+            font-size: 0.9rem;
+            color: var(--text-main);
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+            font-style: italic;
+        }
+
+        .bullet-list {
+            list-style-type: none;
+            color: var(--text-muted);
+        }
+
+        .bullet-list li {
+            font-size: 0.88rem;
+            margin-bottom: 0.2rem;
+            line-height: 1.45;
+            position: relative;
+            padding-left: 1rem;
+        }
+
+        .bullet-list li::before {
+            content: "\2022"; /* Bullet symbol */
+            position: absolute;
+            left: 0;
+            color: var(--text-light);
+            font-weight: bold;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: max-content 1fr;
+            gap: 0.35rem 1rem;
+            font-size: 0.88rem;
+            line-height: 1.45;
+        }
+
+        .skills-grid strong {
+            color: var(--text-main);
+            font-weight: 700;
+        }
+
+        .skills-list {
+            color: var(--text-muted);
+        }
+
+        @media print {
+            body {
+                background: white;
+                padding: 0 !important;
+            }
+            .editor-toolbar {
+                display: none !important;
+            }
+            .resume-container {
+                padding: 0;
+                box-shadow: none;
+                max-width: 100%;
+                width: 100%;
+            }
+            @page {
+                size: A4 portrait;
+                margin: 0.5in 0.6in 0.5in 0.6in;
+            }
+            .section {
+                page-break-inside: auto;
+            }
+            .entry {
+                page-break-inside: avoid;
+                break-inside: avoid;
+            }
+            a {
+                color: inherit !important;
+                text-decoration: none !important;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- TOOLBAR -->
+    <div class="editor-toolbar" id="toolbar">
+        <button onclick="document.execCommand('bold', false, null)" title="Bold"><b>B</b></button>
+        <button onclick="document.execCommand('italic', false, null)" title="Italic"><i>I</i></button>
+        <button onclick="document.execCommand('underline', false, null)" title="Underline"><u>U</u></button>
+        <div class="divider"></div>
+        <button onclick="document.execCommand('insertUnorderedList', false, null)" title="Add Bullet List">• Bullet List</button>
+        <div class="divider"></div>
+        <button onclick="addSection()">➕ Add Section</button>
+        <button onclick="addEntry()">➕ Add Entry</button>
+        <div class="divider"></div>
+        <button onclick="exportPDF()" class="primary">📥 Export PDF</button>
+    </div>
+
+    <!-- RESUME CONTENT (Editable) -->
+    <div class="resume-container" contenteditable="true" id="resumeContent">
+        <!-- HEADER -->
+        <div class="header">
+            <h1>Amogh Shrivastava</h1>
+            <div class="contact">
+                <span>📍 Kolkata, India</span>
+                <span>📧 <a href="mailto:contact.amoghshrivastava@gmail.com">contact.amoghshrivastava@gmail.com</a></span>
+                <span>📞 +91 7595855810</span>
+            </div>
+        </div>
+
+        <!-- EDUCATION -->
+        <div class="section">
+            <div class="section-title">Education</div>
+            <div class="entry">
+                <div class="entry-header">
+                    <span class="entry-title">South City International School, Kolkata</span>
+                    <span class="entry-date">2017 – Present</span>
+                </div>
+                <ul class="bullet-list" style="margin-top: 0.25rem;">
+                    <li><strong>Academics:</strong> Grade 12 (Predicted): 98% | Grade 11: 91% | ICSE (Grade 9 & 10): 97.8%</li>
+                    <li><strong>Coursework:</strong> Physics, Mathematics, Computer Science, English, and History</li>
+                    <li><strong>Standardized Tests:</strong> SAT: 1510 (720 Evidence-Based Reading & Writing, 790 Mathematics) | AP Computer Science A: 5/5</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- LEADERSHIP & VENTURES -->
+        <div class="section">
+            <div class="section-title">Leadership & Ventures</div>
+            
+            <div class="entry">
+                <div class="entry-header">
+                    <span class="entry-title">Founder & Lead Engineer — VedicByte (vedicbyte.io)</span>
+                    <span class="entry-date">Jan 2025 – Aug 2025</span>
+                </div>
+                <ul class="bullet-list">
+                    <li>Architected three AI-driven chatbots leveraging Machine Learning and LLMs to digitally preserve Indian culture: Shastra AI (contextual text modeling), Karma Bot (predictive consequence mapping), and Mind to Pseudocode (developer productivity tool).</li>
+                    <li>Curated and annotated a proprietary corpus of 50+ ancient texts, engineering a high-dimensional vector database integrated with the ChatGPT API to deploy scalable, domain-specific conversational agents.</li>
+                    <li>Scaled platform infrastructure, strategically projected to achieve 1M+ cumulative impressions by October 2025.</li>
+                </ul>
+            </div>
+
+            <div class="entry">
+                <div class="entry-header">
+                    <span class="entry-title">Director of Technology — Student Internet Governance Forum (SIGF)</span>
+                    <span class="entry-date">Aug 2025 – Present</span>
+                </div>
+                <ul class="bullet-list">
+                    <li>Spearheaded an engineering team to architect and deploy the official full-stack platform for the UN-India Internet Governance Forum's youth extension (in collaboration with the Ministry of Electronics and IT).</li>
+                    <li>Orchestrating research initiatives exploring the integration of AI models into digital policy-making and modern internet governance frameworks.</li>
+                </ul>
+            </div>
+
+            <div class="entry">
+                <div class="entry-header">
+                    <span class="entry-title">Founder & Developer — Pramana SAT Prep</span>
+                    <span class="entry-date">Jan 2026 – Present</span>
+                </div>
+                <ul class="bullet-list">
+                    <li>Conceptualized and engineered a dynamic mock-testing portal featuring 5 authentic digital SAT examinations.</li>
+                    <li>Replicated the proprietary Bluebook testing environment, delivering a seamless, high-fidelity user experience for rigorous standardized test preparation.</li>
+                </ul>
+            </div>
+
+            <div class="entry">
+                <div class="entry-header">
+                    <span class="entry-title">Executive Director — Embrace Youth International</span>
+                    <span class="entry-date">Apr 2025 – Oct 2025</span>
+                </div>
+                <ul class="bullet-list">
+                    <li>Directed global operations across 9 branches in 5 nations, orchestrating 10+ high-impact advocacy and climate justice initiatives.</li>
+                    <li>Formulated strategic operational plans, optimized resource allocation, and managed a cross-functional organization of 100+ personnel.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- SCHOOL LEADERSHIP -->
+        <div class="section">
+            <div class="section-title">School Leadership & Innovation</div>
+            
+            <div class="entry">
+                <div class="entry-header">
+                    <span class="entry-title">Head of Math & Astronomy Club — South City Int. School</span>
+                    <span class="entry-date">Apr 2025 – Present</span>
+                </div>
+                <ul class="bullet-list">
+                    <li>Directed advanced research initiatives and analytical skill-building workshops.</li>
+                    <li>Co-authored a peer-reviewed research paper on Galaxy Morphology leveraging complex data modeling architectures.</li>
+                </ul>
+            </div>
+
+            <div class="entry">
+                <div class="entry-header">
+                    <span class="entry-title">Head of History & Heritage Club — South City Int. School</span>
+                    <span class="entry-date">Apr 2024 – Apr 2025</span>
+                </div>
+                <ul class="bullet-list">
+                    <li>Orchestrated immersive digital and physical events bridging historical appreciation with modern engagement strategies.</li>
+                    <li>Revitalized student participation by curating interactive exhibitions.</li>
+                </ul>
+            </div>
+
+            <div class="entry">
+                <div class="entry-header">
+                    <span class="entry-title">Head of IT Club — South City Int. School</span>
+                    <span class="entry-date">Apr 2023 – Apr 2024</span>
+                </div>
+                <ul class="bullet-list">
+                    <li>Spearheaded technical literacy initiatives, organizing hands-on programming workshops and competitive hackathons.</li>
+                    <li>Mentored peers in algorithmic problem-solving and software engineering paradigms.</li>
+                </ul>
+            </div>
+
+            <div class="entry">
+                <div class="entry-header">
+                    <span class="entry-title">Coding Event Head — Morpheus (South City Int. School Fest)</span>
+                    <span class="entry-date">Jul 2025</span>
+                </div>
+                <ul class="bullet-list">
+                    <li>Architected a comprehensive competitive programming event curriculum comprising algorithmic challenges and documentation tasks.</li>
+                    <li>Evaluated student logic against robust sample test cases and managed active participation infrastructure.</li>
+                </ul>
+            </div>
+
+            <div class="entry">
+                <div class="entry-header">
+                    <span class="entry-title">Technical Head — City Corpus (South City Int. Commerce Fest)</span>
+                    <span class="entry-date">Oct 2025</span>
+                </div>
+                <ul class="bullet-list">
+                    <li>Engineered an AI-powered Stock Exchange Simulation platform that dynamically predicted market fluctuations based on real-world crisis prompts for interactive commerce events.</li>
+                    <li>Architected and deployed the official commerce fest IT infrastructure to seamlessly handle user registrations, event rules, and query management.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- RESEARCH WORK -->
+        <div class="section">
+            <div class="section-title">Applied Research Work</div>
+            
+            <div class="entry">
+                <div class="entry-header">
+                    <span class="entry-title">International Journal of Science and Research (IJSR)</span>
+                    <span class="entry-date">2025</span>
+                </div>
+                <div class="entry-subtitle">Authored: "Preserving Linguistic Diversity: The Role of AI-based Language Learning Applications"</div>
+                <ul class="bullet-list">
+                    <li>Published authoritative research evaluating the efficacy of AI-driven platforms (Duolingo, Memrise) in revitalizing dying languages. Formulated data-backed policy recommendations bridging legacy methodologies with modern technology.</li>
+                </ul>
+            </div>
+
+            <div class="entry">
+                <div class="entry-header">
+                    <span class="entry-title">Independent Research (Submitted to Journals)</span>
+                    <span class="entry-date">2026</span>
+                </div>
+                <div class="entry-subtitle">Co-Authored: "Triage and Refine Framework for Scalable Galaxy Morphology Classification"</div>
+                <ul class="bullet-list">
+                    <li>Proposed a highly sophisticated hybrid Human-CNN (Convolutional Neural Network) architecture optimized for the Vera Rubin Observatory dataset, synthesizing comprehensive empirical evidence to evaluate validation metrics.</li>
+                </ul>
+            </div>
+
+            <div class="entry">
+                <div class="entry-header">
+                    <span class="entry-title">Computational Linguistics Investigation</span>
+                    <span class="entry-date">Ongoing 2026</span>
+                </div>
+                <div class="entry-subtitle">Investigating: "LLM Hallucination Detection in Code-Mixed Indian Languages"</div>
+                <ul class="bullet-list">
+                    <li>Spearheading empirical investigations into computational linguistics, analyzing hallucination variance and output fidelity across multiple Large Language Models processing complex code-mixed regional structures.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- INTERNSHIPS & PROGRAMS -->
+        <div class="section">
+            <div class="section-title">Internships & Professional Development</div>
+            
+            <div class="entry">
+                <div class="entry-header">
+                    <span class="entry-title">Frontend Intern — Pakka Skills, Ayodhya</span>
+                    <span class="entry-date">Apr 2025 – Aug 2025</span>
+                </div>
+                <ul class="bullet-list">
+                    <li>Engineered responsive, cross-platform UI architectures utilizing HTML, CSS, and Tailwind CSS. Optimized digital brand identity through strategic UI/UX enhancements.</li>
+                </ul>
+            </div>
+
+            <div class="entry">
+                <div class="entry-header">
+                    <span class="entry-title">Fullstack Intern — Klarice Academy, Kolkata</span>
+                    <span class="entry-date">Nov 2025</span>
+                </div>
+                <ul class="bullet-list">
+                    <li>Architected a robust full-stack infrastructure, integrating dynamic frontend UI components with a scalable backend REST framework to optimize data processing.</li>
+                </ul>
+            </div>
+            
+            <div class="entry">
+                <div class="entry-header">
+                    <span class="entry-title">Summer Undergraduate Program — National University of Singapore (NUS)</span>
+                    <span class="entry-date">Jul 2025</span>
+                </div>
+                <ul class="bullet-list">
+                    <li>Engaged in rigorous AI/ML coursework. Engineered a "Dark Psychology AI Therapist" leveraging predictive modeling to neutralize manipulative behavioral tactics; successfully adopted by two youth mental health organizations scaling 80+ members.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- COMMUNITY & EXTRACURRICULARS -->
+        <div class="section">
+            <div class="section-title">Community Impact & Extracurriculars</div>
+            <div class="entry">
+                <ul class="bullet-list">
+                    <li><strong>Debate (2019–Present):</strong> Mentored by Ivy League alumni. Claimed 1st place in 10+ high-stakes regional debate championships and actively mentored a cohort of 40+ junior students in rhetorical strategy.</li>
+                    <li><strong>Varsity Athletics & Strategy (2019–Present):</strong> High School Varsity Chess Captain maintaining a peak ELO of 2200 (Lichess). Badminton Varsity Team Member securing 4th in the CISCE Regional Badminton Championship.</li>
+                    <li><strong>Standardized Test Instruction (2025–Present):</strong> Delivered specialized SAT Mathematics and English tutoring paradigms, resulting in an aggregated average score improvement of 200 points.</li>
+                    <li><strong>"Vedic Code" Podcast (2025–Present):</strong> Produced an innovative 10-episode audio series converging Artificial Intelligence paradigms with traditional Indian philosophical frameworks; projected for 10k views by Oct 2025.</li>
+                    <li><strong>VedicByte Community Outreach (2025–Present):</strong> Committed 30+ hours facilitating technological literacy initiatives and AI fundamentals at local orphanages, fostering civic empowerment.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- HONORS & SKILLS -->
+        <div class="section">
+            <div class="section-title">Honors & Technical Proficiencies</div>
+            <div class="entry">
+                <div class="skills-grid">
+                    <strong>Awards & Distinctions:</strong>
+                    <span class="skills-list">Horizon Academic Essay Prize ($1000 Scholarship, Top 5% Globally) • Top 0.1% Scorer in ICSE Hindi 2025 (CISCE Certified) • 1st in Science Section (ICSE 2025) • 3rd Place in Build Your Bit Competition (British Council) • Gold Medalist at Robowars (National Robotics Competition, Tinker Fest 2023) • 5x Hackathon Champion.</span>
+                    
+                    <strong style="margin-top: 0.25rem;">Programming:</strong>
+                    <span class="skills-list" style="margin-top: 0.25rem;">C/C++, Java (JDBC, Spring Boot), Python (Flask, Django), JavaScript (React), HTML5/CSS3 (Tailwind, Bootstrap) • 5-Star HackerRank in C, C++, Java.</span>
+                    
+                    <strong>Architecture / Tools:</strong>
+                    <span class="skills-list">Git/GitHub, RESTful APIs, SQL, MongoDB, Large Language Models (LLMs), Vector Databases, LaTeX, Jupyter, MATLAB, Google Scholar, MS Suite.</span>
+                    
+                    <strong>Languages:</strong>
+                    <span class="skills-list">English (Fluent), Hindi (Native/Proficient).</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // JS functionality for the editor toolbar
+
+        function insertHTMLAtSelection(html) {
+            const selection = window.getSelection();
+            if (!selection.rangeCount) return;
+            
+            // Only allow insertion if inside the resume container to avoid breaking toolbar
+            let node = selection.anchorNode;
+            let withinResume = false;
+            while (node && node !== document.body) {
+                if (node.id === 'resumeContent') {
+                    withinResume = true;
+                    break;
+                }
+                node = node.parentNode;
+            }
+
+            if (!withinResume) {
+                alert("Please click inside the resume before adding a section or entry.");
+                return;
+            }
+
+            // Fallback for modern browsers avoiding execCommand for inserting complex html
+            const range = selection.getRangeAt(0);
+            const el = document.createElement("div");
+            el.innerHTML = html;
+            const frag = document.createDocumentFragment();
+            let lastNode;
+            while ((lastNode = el.firstChild)) {
+                frag.appendChild(lastNode);
+            }
+            range.insertNode(frag);
+            
+            // Move caret to end of inserted element
+            if (lastNode) {
+                range = range.cloneRange();
+                range.setStartAfter(lastNode);
+                range.collapse(true);
+                selection.removeAllRanges();
+                selection.addRange(range);
+            }
+        }
+
+        function addSection() {
+            const html = `
+            <div class="section">
+                <div class="section-title">New Section Title</div>
+                <div class="entry">
+                    <div class="entry-header">
+                        <span class="entry-title">Entry Title / Organization</span>
+                        <span class="entry-date">Date Range</span>
+                    </div>
+                    <ul class="bullet-list">
+                        <li>New bullet point detail here...</li>
+                    </ul>
+                </div>
+            </div><br>`;
+            
+            insertHTMLAtSelection(html);
+        }
+
+        function addEntry() {
+            const html = `
+            <div class="entry">
+                <div class="entry-header">
+                    <span class="entry-title">Entry Title / Organization</span>
+                    <span class="entry-date">Date Range</span>
+                </div>
+                <ul class="bullet-list">
+                    <li>New bullet point detail here...</li>
+                </ul>
+            </div><br>`;
+            
+            insertHTMLAtSelection(html);
+        }
+
+        function exportPDF() {
+            // Disabling contenteditable briefly for a flawless PDF export
+            const container = document.getElementById('resumeContent');
+            container.setAttribute('contenteditable', 'false');
+            
+            // The browser's native print engine translates the @media print CSS perfectly
+            // Tell the user to select 'Save as PDF'
+            setTimeout(() => {
+                window.print();
+                container.setAttribute('contenteditable', 'true');
+            }, 100);
+        }
+    </script>
+</body>
+</html>
